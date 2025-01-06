@@ -5,9 +5,10 @@ def main():
     book_words = book_text.split()
     word_count = len(book_words)
     print(f'{word_count} words found in the document')
-    characters = character_count(book_text)
-    for character in characters:
-        print(f'The \'{character}\' character appears {characters[character]} time(s)')
+    counted_characters = character_count(book_text)
+    sorted_characters = sort_characters(counted_characters)
+    for character in sorted_characters:
+        print(f'The \'{character['character']}\' character appears {character['count']} time(s)')
 
 
 def read_book(path_to_book):
@@ -24,4 +25,13 @@ def character_count(book):
             char_appearances[character] = 1
     return char_appearances
 
+def sort_method(dict):
+    return dict["count"]
+
+def sort_characters(character_counts):
+    characters = []
+    for character in character_counts:
+        characters.append({'character': character, 'count': character_counts[character]})
+    characters.sort(reverse=True, key=sort_method)
+    return characters
 main()
